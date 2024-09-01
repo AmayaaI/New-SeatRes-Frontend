@@ -35,7 +35,7 @@ onRegister(): void {
   this.router.navigate(['/register']);
 }
 onLogin(): void {
-  this.router.navigate(['/home']);
+  this.router.navigate(['/intern-dashboard']);
   this.notificationService.showSuccess('Login successful!'); // Show success message
 }
 
