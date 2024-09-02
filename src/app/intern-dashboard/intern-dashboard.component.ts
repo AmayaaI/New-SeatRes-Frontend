@@ -1,104 +1,101 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDatepickerModule } from '@angular/material/datepicker'; // Date picker module
-import { FormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-interface Seat {
-  number: number;
-  bookings: { [date: string]: boolean }; // Tracks booking status by date
-  isAvailable?: boolean;
-}
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Seat } from '../../models/internDashboard.model';
 
 @Component({
   selector: 'app-intern-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule,MatDatepickerModule,
-   // MatFormFieldModule,
-    //MatInputModule,
-    MatNativeDateModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './intern-dashboard.component.html',
   styleUrls: ['./intern-dashboard.component.css']
 })
 export class InternDashboardComponent {
   
-  seats: Seat[] = []; // Initialize empty seat array
-  selectedDate: Date | null = null; // Use Date object for selected date
-  filteredSeats: Seat[] = []; // Seats filtered by date
-  selectedSeat: Seat | null = null; // Currently selected seat for booking
-  employeeId: string = '';
-  employeeName: string = '';
-  showBookingForm: boolean = false; // Control the visibility of the booking form
-  isSubmitting: boolean = false; // Add isSubmitting property
-  
+  seats: Seat[] = [];
+  selectedDate: Date | null = null;
+  filteredSeats: Seat[] = [];
+  selectedSeat: Seat | null = null;
+  showBookingForm: boolean = false;
+  isSubmitting: boolean = false;
+
+  bookingForm: FormGroup;
+
+  private http = inject(HttpClient); // Inject HttpClient
+  private router = inject(Router); // Inject Router
+
   constructor() {
     this.seats = Array.from({ length: 20 }, (_, i) => ({
       number: i + 1,
       bookings: {},
-      isAvailable: true // Initialize isAvailable as true for all seats
+      isAvailable: true
     }));
     this.filteredSeats = [...this.seats];
+
+    this.bookingForm = new FormGroup({
+      employeeName: new FormControl('', Validators.required),
+      employeeId: new FormControl('', Validators.required)
+    });
   }
   
-
   onDateChange() {
     if (this.selectedDate) {
       const selectedDateStr = new Date(this.selectedDate).toDateString();
       this.filteredSeats = this.seats.filter(seat => !seat.bookings[selectedDateStr]);
     } else {
-      this.filteredSeats = [...this.seats]; // If no date selected, show all seats
+      this.filteredSeats = [...this.seats];
     }
   }
   
   bookSeat(seat: Seat) {
     this.selectedSeat = seat;
-    this.showBookingForm = true; // Show the booking form
+    this.showBookingForm = true;
   }
 
   submitBooking() {
-    this.isSubmitting = true; // Start the submission process
+    this.isSubmitting = true;
     console.log('Submit Booking Button Clicked');
   
-    if (this.employeeId && this.employeeName && this.selectedSeat && this.selectedDate) {
-      const selectedDateStr = new Date(this.selectedDate).toDateString();
+    if (this.bookingForm.valid && this.selectedSeat) {
+      const selectedDateStr = new Date(this.selectedDate!).toDateString(); // Use the selected date
   
-      // Find the seat being booked
-      const seatToBook = this.seats.find(seat => seat.number === this.selectedSeat?.number);
+      // Prepare the booking data to send to the backend
+      const bookingData = {
+        employeeName: this.bookingForm.get('employeeName')?.value,
+        employeeId: this.bookingForm.get('employeeId')?.value,
+        seatNumber: this.selectedSeat.number,
+        date: selectedDateStr // Include the date in the booking data
+      };
   
-      if (seatToBook) {
-        // Check if the seat is already booked on the selected date
-        if (seatToBook.bookings[selectedDateStr]) {
-          alert('The seat is already booked for the selected date.');
-          this.isSubmitting = false; // Reset when done
-          return;
+      // Send the booking data to the backend API
+      this.http.post('http://localhost:5121/api/bookings', bookingData).subscribe({
+        next: (response) => {
+          console.log('Booking successful:', response);
+          alert('Booking confirmed successfully!');
+  
+          // Mark the seat as booked locally
+          this.selectedSeat!.bookings[selectedDateStr] = true;
+          this.onDateChange();
+  
+          this.showBookingForm = false;
+        },
+        error: (error) => {
+          console.error('Booking failed:', error);
+          alert('Booking failed. Please try again.');
+        },
+        complete: () => {
+          this.isSubmitting = false;
         }
-  
-        // Mark the seat as booked on the selected date
-        seatToBook.bookings[selectedDateStr] = true;
-  
-        // Update the filtered seats to reflect the booking immediately
-        this.onDateChange();
-  
-        this.showBookingForm = false; // Hide the booking form
-        alert('Booking confirmed successfully!');
-      } else {
-        alert('Seat not found.');
-      }
+      });
     } else {
-      alert('Please enter both Employee ID and Name, and select a date.');
+      alert('Please fill out the form correctly.');
+      this.isSubmitting = false;
     }
-  
-    this.isSubmitting = false; // Reset when done
   }
   
   cancelBooking() {
-    this.showBookingForm = false; // Hide the booking form
+    this.showBookingForm = false;
   }
 }
-  
-  
-  
-  
- // cancelBooking() {
- //   this.showBookingForm = false; // Hide the booking form
-  //}
-//}

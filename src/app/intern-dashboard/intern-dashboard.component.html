@@ -5,7 +5,7 @@
   </header>
 
   <div class="date-picker-container">
-    <label for="datePicker">Select Date:   </label>
+    <label for="datePicker">Select Date:</label>
     <input id="datePicker" type="date" [(ngModel)]="selectedDate" (change)="onDateChange()" />
   </div>
 
@@ -24,12 +24,14 @@
 <div *ngIf="showBookingForm" class="booking-form-modal">
   <div class="booking-form-content">
     <h2>Book Seat {{ selectedSeat?.number }}</h2>
-    <form (ngSubmit)="submitBooking()">
+    <form [formGroup]="bookingForm" (ngSubmit)="submitBooking()">
       <label for="employeeId">Employee ID:</label>
-      <input id="employeeId" [(ngModel)]="employeeId" name="employeeId" required />
+      <input id="employeeId" formControlName="employeeId" required />
 
       <label for="employeeName">Name:</label>
-      <input id="employeeName" [(ngModel)]="employeeName" name="employeeName" required />
+      <input id="employeeName" formControlName="employeeName" required />
+
+      <!-- Removed date field from the booking form modal -->
 
       <button type="submit" [disabled]="isSubmitting">Submit</button>
 
