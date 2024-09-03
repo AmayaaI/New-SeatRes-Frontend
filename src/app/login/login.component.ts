@@ -29,10 +29,13 @@ export class LoginComponent {
       password: ['', Validators.required]
     });
   }
-
+ 
 
 onRegister(): void {
   this.router.navigate(['/register']);
+}
+onHome(): void {
+  this.router.navigate(['/home']);
 }
 onLogin(): void {
   this.router.navigate(['/intern-dashboard']);
