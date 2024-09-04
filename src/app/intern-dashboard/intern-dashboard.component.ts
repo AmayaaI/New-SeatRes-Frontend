@@ -36,7 +36,8 @@ export class InternDashboardComponent {
 
     this.bookingForm = new FormGroup({
       employeeName: new FormControl('', Validators.required),
-      employeeId: new FormControl('', Validators.required)
+      employeeId: new FormControl('', Validators.required),
+      
     });
   }
   
@@ -63,16 +64,23 @@ export class InternDashboardComponent {
   
       // Prepare the booking data to send to the backend
       const bookingData = {
-        employeeName: this.bookingForm.get('employeeName')?.value,
-        employeeId: this.bookingForm.get('employeeId')?.value,
-        seatNumber: this.selectedSeat.number,
-        date: selectedDateStr // Include the date in the booking data
+        EmployeeName: this.bookingForm.get('employeeName')?.value,
+        EmployeeId: this.bookingForm.get('employeeId')?.value,
+        
+        ReservationDate: selectedDateStr, // Include the date in the booking data
+        SeatNumber: this.selectedSeat.number
       };
   
       // Send the booking data to the backend API
-      this.http.post('http://localhost:5121/api/bookings', bookingData).subscribe({
+      
+      console.log(bookingData);
+      this.http.post('http://localhost:5121/api/Seats/Reserve', bookingData).subscribe({
+        
         next: (response) => {
+          
           console.log('Booking successful:', response);
+          
+          
           alert('Booking confirmed successfully!');
   
           // Mark the seat as booked locally
