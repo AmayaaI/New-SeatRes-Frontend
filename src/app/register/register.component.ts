@@ -1,49 +1,44 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
-import { NotificationService } from '../services/notification.service'; 
 
 @Component({
   selector: 'app-register',
+  standalone: true, 
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule],
+  styleUrls: ['./register.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule] 
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  private apiUrl = 'https://localhost:7109/api/Employee/register';
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService,
-    private router: Router,
-    private notificationService: NotificationService 
-  ) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      phone_number: ['', Validators.required] 
+      phoneNumber: ['']
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.registerForm.valid) {
-      const user = this.registerForm.value;
-      this.userService.register(user).subscribe({
-        next: (response) => {
-          console.log('User registered', response);
-          this.notificationService.showSuccess('Registration successful! Please log in.'); 
-          this.router.navigate(['/login']); 
-        },
-        error: (err: any) => {
-          console.error('Registration error', err);
-          this.notificationService.showError('Registration failed. Please try again.'); 
-        },
-      });
+      this.http.post(this.apiUrl, this.registerForm.value)
+        .subscribe(
+          response => {
+            console.log('Employee registered successfully', response);
+            this.router.navigate(['/login']); 
+            
+          },
+          error => {
+            console.error('Error registering employee', error);
+          }
+        );
     }
   }
 }
