@@ -1,0 +1,25 @@
+.breadcrumb {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .breadcrumb-item {
+    display: inline;
+  }
+  
+  .breadcrumb-item a {
+    text-decoration: none;
+    color: blue; /* Customize the color */
+  }
+  
+  .breadcrumb-item.active {
+    font-weight: bold;
+    color: gray; /* Customize the active breadcrumb color */
+  }
+  
+  .breadcrumb-item span {
+    margin: 0 5px; /* Add some space around the '>' */
+  }
+  
+  

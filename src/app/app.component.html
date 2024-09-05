@@ -1,1 +1,27 @@
-<router-outlet></router-outlet>
+<nav aria-label="main navigation">
+    <ul style="display: flex; list-style-type: none; padding: 0;">
+      <li style="margin-right: 10px;">
+        <a [routerLink]="['/home']">Home</a>
+      </li>
+      <li style="margin-right: 10px;">&gt;</li> <!-- Separator -->
+      <li style="margin-right: 10px;">
+        <a [routerLink]="['/login']">Login</a>
+      </li>
+      <li style="margin-right: 10px;">&gt;</li> <!-- Separator -->
+      <li style="margin-right: 10px;">
+        <a [routerLink]="['/register']">Register</a>
+      </li>
+      <li style="margin-right: 10px;">&gt;</li> <!-- Separator -->
+      <li style="margin-right: 10px;">
+        <a [routerLink]="['/intern-dashboard']">Intern Dashboard</a>
+      </li>
+      <li style="margin-right: 10px;">&gt;</li> <!-- Separator -->
+      <li>
+        <a [routerLink]="['/admin-dashboard']">Admin Dashboard</a>
+      </li>
+    </ul>
+  </nav>
+  
+  <app-breadcrumb></app-breadcrumb>
+  <router-outlet></router-outlet>
+  
