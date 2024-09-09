@@ -1,14 +1,14 @@
+
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs; let last = last" [ngClass]="{ 'active': last }">
-        <ng-container *ngIf="!last">
-          <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
-          <span> &gt; </span> <!-- Adds '>' between breadcrumb links -->
-        </ng-container>
-        <ng-container *ngIf="last">
-          {{ breadcrumb.label }}
-        </ng-container>
-      </li>
-    </ol>
-  </nav>
-  
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs; let last = last" [ngClass]="{ 'active': last }">
+      <ng-container *ngIf="!last">
+        <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+        <span> &gt; </span> <!-- Adds '>' between breadcrumb links -->
+      </ng-container>
+      <ng-container *ngIf="last">
+        {{ breadcrumb.label }}
+      </ng-container>
+    </li>
+  </ol>
+</nav>

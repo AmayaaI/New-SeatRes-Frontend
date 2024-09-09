@@ -16,4 +16,12 @@ export class AdminDashboardComponent {
   logout(): void {
     this.router.navigate(['/login']);
   }
+
+   // Method to navigate to admin-view-booking page
+   viewBookings(): void {
+    this.router.navigate(['/admin-view-bookings']);
+  }
+
+
+  
 }

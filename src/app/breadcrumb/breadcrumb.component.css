@@ -1,25 +1,41 @@
 .breadcrumb {
-    display: flex;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .breadcrumb-item {
-    display: inline;
-  }
-  
-  .breadcrumb-item a {
-    text-decoration: none;
-    color: blue; /* Customize the color */
-  }
-  
-  .breadcrumb-item.active {
-    font-weight: bold;
-    color: gray; /* Customize the active breadcrumb color */
-  }
-  
-  .breadcrumb-item span {
-    margin: 0 5px; /* Add some space around the '>' */
-  }
-  
-  
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0; /* Add vertical spacing */
+  font-size: 14px; /* Adjust font size for better readability */
+  background: #f8f9fa; /* Light background color */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '>';
+  margin: 0 10px; /* Add spacing around the separator */
+  color: #6c757d; /* Color for the separator */
+}
+
+.breadcrumb-item a {
+  text-decoration: none;
+  color: #007bff; /* Blue color for links */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.breadcrumb-item a:hover {
+  color: #0056b3; /* Darker blue for hover effect */
+}
+
+.breadcrumb-item.active {
+  font-weight: bold;
+  color: #495057; /* Dark gray for the active breadcrumb */
+}
+
+.breadcrumb-item span {
+  display: inline; /* Show the separator */
+  margin: 0 5px; /* Add space around the separator */
+}

@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { InternDashboardComponent } from './intern-dashboard/intern-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { AdminBookingViewComponent } from './admin-booking-view/admin-booking-view.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 //import { ForgetPasswordComponent } from './forgot-password/forgot-password.component';
 //import { VerifyCodeComponent } from './verify-code/verify-code.component';
 
@@ -14,6 +16,8 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
   { path: 'intern-dashboard', component: InternDashboardComponent, data: { breadcrumb: 'Intern Dashboard' } },
   { path: 'admin-dashboard', component: AdminDashboardComponent, data: { breadcrumb: 'Admin Dashboard' } },
+  { path: 'admin-view-bookings', component: AdminBookingViewComponent, data: { breadcrumb: 'View Booking' } },
+  { path: 'admin-login', component: AdminLoginComponent, data: { breadcrumb: 'Admin Login' } },
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default route
   
 

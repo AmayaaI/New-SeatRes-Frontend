@@ -5,7 +5,7 @@
             <nav class="navbar">
                 <a href="/register" class="nav-link">Register</a>
                 <!-- <a href="/admin-login" class="nav-link">Admin Login</a> -->
-                <a routerLink="/admin-dashboard" class="nav-link">Admin Login</a>
+                <a routerLink="/admin-login" class="nav-link">Admin Login</a>
 
                 <a href="/login" class="nav-link">Intern Login</a>
             </nav>
@@ -15,7 +15,7 @@
         <section class="booking-info">
             <div class="description">
                 <p>Book your seat quickly and easily!</p>
-                <button class="book-now-btn">Book Now</button>
+                <button class="book-now-btn" (click)="viewBookings()">Book Now</button>
             </div>
         </section>
     </div>

@@ -1,14 +1,4 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #74ebd5, #acb6e5);
-  }
-  
-  .container-wrapper {
+.container-wrapper {
     display: flex;
     margin: auto;
     height: 100vh;
@@ -102,7 +92,7 @@ body, html {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
-    background-color: #0056a2;/*#74ebd5*/
+    background-color:#0056a2;/* #74ebd5;*/
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -121,12 +111,12 @@ body, html {
       transform: translateY(0);
     }
   }
-  .register-btn {
-    background-color: #50b748;/*#ff9f9f;*/
-    color: #fff;
+  
+  .home-btn {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
+    background-color:#50b748; /*#c0aec6;*/
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -136,9 +126,15 @@ body, html {
     transition: background-color 0.3s ease, transform 0.3s ease;
   
     &:hover {
-      background-color: #ff7f7f;
+      background-color: #9162b2;
       transform: translateY(-3px);
     }
+  
+    &:active {
+      background-color: #9162b2;
+      transform: translateY(0);
+    }
+  }
   
   @keyframes slideIn {
     from {
@@ -150,33 +146,8 @@ body, html {
       transform: translateY(0);
     }
   }
-}
+  
+  .body{
 
-.home-btn {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  background-color: #c0aec6;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-
-  &:hover {
-    background-color: #9162b2;
-    transform: translateY(-3px);
+    background-image: url('/assets/background.jpg'); background-size: cover;background-position: center;
   }
-
-  &:active {
-    background-color:  #9162b2;
-    transform: translateY(0);
-  }
-}
-
-.body{
-
-  background-image: url('/assets/seat.jpg'); background-size: cover;background-position: center;
-}

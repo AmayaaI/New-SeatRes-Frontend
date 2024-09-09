@@ -6,12 +6,14 @@
   max-width: 1400px;
   margin: 0 auto;
   box-sizing: border-box;
-  background-image: url('/assets/b2.jpg');
+  background-image: url('/assets/seat.jpg');
  
-  
+  background-size: cover;background-position: center;
+ 
 
  
 }
+
 
 /* Date picker container styling */
 .date-picker-container {
